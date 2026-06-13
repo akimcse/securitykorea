@@ -41,10 +41,11 @@ jobs:
             exit 0
           fi
           echo "Merger: $MERGER"
-          echo "$FILES" | MERGER="$MERGER" python - <<'PY'
-          import os, sys, re
+          export FILES
+          MERGER="$MERGER" FILES="$FILES" python - <<'PY'
+          import os, re
           merger = os.environ["MERGER"]
-          files = [l.strip() for l in sys.stdin if l.strip()]
+          files = [l.strip() for l in os.environ.get("FILES", "").splitlines() if l.strip()]
           for path in files:
               if not os.path.exists(path):
                   print("skip (missing):", path); continue
