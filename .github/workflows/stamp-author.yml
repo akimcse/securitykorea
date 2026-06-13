@@ -49,7 +49,7 @@ jobs:
           for path in files:
               if not os.path.exists(path):
                   print("skip (missing):", path); continue
-              text = open(path, encoding="utf-8").read()
+              text = open(path, encoding="utf-8-sig").read()   # tolerate BOM
               if not text.startswith("---"):
                   print("skip (no front matter):", path); continue
               end = text.find("\n---", 3)
