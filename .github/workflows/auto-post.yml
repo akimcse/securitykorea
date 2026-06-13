@@ -92,49 +92,34 @@ jobs:
           echo "pr_url=$PR_URL" >> "$GITHUB_OUTPUT"
           rm -f pr_body.md
 
-      - name: Send Teams approval alert
-        if: steps.crawl.outputs.count != '0' && env.TEAMS_WEBHOOK_URL != ''
+      - name: Request reviewers (GitHub email notifications)
+        if: steps.crawl.outputs.count != '0'
         env:
-          TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           POSTS: ${{ steps.crawl.outputs.posts }}
           PR_URL: ${{ steps.pr.outputs.pr_url }}
         run: |
-          python - <<'PY'
-          import json, os, urllib.request
+          # Collect the unique solution owners across all posts in this PR and add
+          # them as PR reviewers. GitHub then emails each reviewer (and sends a
+          # web/mobile notification) — this is our approval alert, no webhook needed.
+          # Owner ids that are not valid GitHub logins (e.g. unmapped placeholders)
+          # are skipped without failing the workflow.
+          REVIEWERS=$(python - <<'PY'
+          import json, os
           posts = json.loads(os.environ.get("POSTS", "[]"))
-          pr_url = os.environ.get("PR_URL", "")
-          facts = []
-          body_items = []
+          seen = []
           for p in posts:
-              owners = ", ".join(p["owners"])
-              body_items.append({
-                  "type": "TextBlock", "wrap": True,
-                  "text": f"**{p['ko_title']}**\n\n솔루션: {p['solution_label']} · 담당: {owners}"
-              })
-          card = {
-              "type": "message",
-              "attachments": [{
-                  "contentType": "application/vnd.microsoft.card.adaptive",
-                  "content": {
-                      "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-                      "type": "AdaptiveCard", "version": "1.4",
-                      "body": [
-                          {"type": "TextBlock", "size": "Large", "weight": "Bolder",
-                           "text": "🔐 MS KR Security Blog — 게시 승인 요청"},
-                          {"type": "TextBlock", "wrap": True,
-                           "text": f"{len(posts)}건의 번역 포스트가 검수를 기다립니다. PR을 검토 후 머지하면 게시가 진행됩니다."},
-                          *body_items
-                      ],
-                      "actions": [
-                          {"type": "Action.OpenUrl", "title": "PR 검토하기", "url": pr_url}
-                      ] if pr_url else []
-                  }
-              }]
-          }
-          req = urllib.request.Request(os.environ["TEAMS_WEBHOOK_URL"],
-                                       data=json.dumps(card).encode("utf-8"),
-                                       headers={"Content-Type": "application/json"},
-                                       method="POST")
-          with urllib.request.urlopen(req, timeout=30) as r:
-              print("Teams webhook status:", r.status)
+              for o in p.get("owners", []):
+                  if o and o not in seen:
+                      seen.append(o)
+          print(" ".join(seen))
           PY
+          )
+          echo "Candidate reviewers: $REVIEWERS"
+          for r in $REVIEWERS; do
+            if gh pr edit "$PR_URL" --add-reviewer "$r" 2>/dev/null; then
+              echo "  + requested review from $r"
+            else
+              echo "  ! could not add reviewer '$r' (not a valid/collaborator GitHub login) — skipped"
+            fi
+          done
