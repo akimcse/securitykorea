@@ -1,0 +1,16 @@
+# Jekyll
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+.bundle/
+vendor/
+
+# Python automation
+automation/__pycache__/
+automation/.venv/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db

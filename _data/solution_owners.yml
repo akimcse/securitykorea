@@ -1,0 +1,76 @@
+# Solution → owner routing for the auto-post approval gate.
+#
+# Each solution maps to:
+#   - owners: GitHub usernames who must approve (Environment reviewers) + get Teams alerts
+#   - tags:   lowercased substrings matched against the RSS <category> tags of each post.
+#             A post is assigned to a solution if ANY of its feed tags contains one of these.
+#   - label:  human-readable Korean label used for the post `solution` front matter & Teams card.
+#
+# Test scope: only `security-copilot` and `agent-365` are ENABLED. Others are kept for
+# reference / future rollout but are flagged enabled: false so the crawler skips them.
+
+default_owner: akimcse        # used when a post matches no enabled solution
+
+solutions:
+  security-copilot:
+    label: "Security Copilot"
+    enabled: true
+    owners: [akimcse]
+    tags:
+      - "security copilot"
+      - "copilot for security"
+
+  agent-365:
+    label: "Agent 365"
+    enabled: true
+    owners: [akimcse]          # test: route both to user; prod also adds 상혁
+    tags:
+      - "agent 365"
+      - "ai agent"
+      - "ai agents"
+      - "agentic"
+      - "autonomous agent"
+
+  purview:
+    label: "Purview"
+    enabled: false
+    owners: [byungtae]
+    tags:
+      - "purview"
+      - "data security"
+      - "insider risk"
+      - "data loss prevention"
+      - "dlp"
+      - "information protection"
+      - "compliance"
+      - "ediscovery"
+
+  defender-sentinel:
+    label: "Defender / Sentinel"
+    enabled: false
+    owners: [jonggi]
+    tags:
+      - "defender"
+      - "sentinel"
+      - "xdr"
+      - "edr"
+      - "threat intelligence"
+      - "threat actor"
+      - "ransomware"
+      - "adversary-in-the-middle"
+      - "aitm"
+      - "vulnerability"
+      - "incident response"
+
+  entra-intune:
+    label: "Entra / Intune"
+    enabled: false
+    owners: [sanghyeok]
+    tags:
+      - "entra"
+      - "identity"
+      - "conditional access"
+      - "intune"
+      - "endpoint management"
+      - "mfa"
+      - "passwordless"
