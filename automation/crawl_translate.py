@@ -63,13 +63,13 @@ NS = {
 # Helpers
 # --------------------------------------------------------------------------- #
 def load_owners() -> dict:
-    with open(OWNERS_FILE, encoding="utf-8") as fh:
+    with open(OWNERS_FILE, encoding="utf-8-sig") as fh:
         return yaml.safe_load(fh)
 
 
 def load_state() -> dict:
     if STATE_FILE.exists():
-        return json.loads(STATE_FILE.read_text(encoding="utf-8"))
+        return json.loads(STATE_FILE.read_text(encoding="utf-8-sig"))
     return {"processed": {}}
 
 
