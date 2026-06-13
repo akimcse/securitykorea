@@ -1,5 +1,6 @@
 ---
 title: "[KO] Securing CI/CD in an agentic world: Claude Code Github action case"
+author: akimcse
 date: 2026-06-05 16:46:47 +0000
 categories: ["Agent 365"]
 tags: ["ci/cd", "frontier ai models", "vulnerability"]
