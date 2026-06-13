@@ -30,11 +30,20 @@
              → 승인 시에만 GitHub Pages 게시  ← 담당자 승인 없이는 게시 안 됨
 ```
 
-## 승인 게이트 (Option A — GitHub Environment)
+## 승인 게이트 (PR 머지 = 승인)
 
-`Settings → Environments → github-pages`에서 **Required reviewers**에 담당자의
-GitHub 계정을 추가하면, `deploy` 잡이 그 사람의 승인을 받기 전까지 멈춥니다.
-테스트 단계에서는 `akimcse` 한 명만 지정합니다.
+자동/수동 글은 모두 **Pull Request로 올라옵니다.** 담당자는 PR의 "Files changed"에서
+번역문·내용을 직접 검토한 뒤 **머지하면 그것이 곧 승인**입니다. 머지되지 않은 글은
+`main`에 들어가지 못하므로 게시되지 않습니다 — "담당자 승인 없이는 게시하지 않음"을 충족합니다.
+
+> 머지 권한이 있는 사람(= 솔루션 담당자)만 게시를 확정할 수 있습니다.
+
+## 작성자 = 머지한 사람
+
+PR이 머지되면 `.github/workflows/stamp-author.yml`이 **머지한 사람의 GitHub 로그인**을
+각 포스트의 `author` front matter로 기입하고, Pages 재빌드를 트리거합니다.
+표시 이름은 `_data/authors.yml`에서 매핑합니다(예: `akimcse` → **Hyuna Kim**).
+새 기여자가 처음 머지하면 `_data/authors.yml`에 한 줄만 추가하면 됩니다.
 
 ## 솔루션 → 담당자 매핑
 

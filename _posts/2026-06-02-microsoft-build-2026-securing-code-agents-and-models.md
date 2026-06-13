@@ -2,6 +2,7 @@
 title: "Microsoft Build 2026: 개발 수명 주기 전반에서 코드·에이전트·모델 보호하기"
 date: 2026-06-02 17:15:18 +0000
 categories: ["Agent 365"]
+author: akimcse
 tags: ["github", "microsoft agent 365", "security strategies"]
 solution: agent-365
 owners: ["akimcse"]

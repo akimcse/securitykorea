@@ -1,0 +1,92 @@
+name: "Stamp author on merge"
+
+# When a PR that touched _posts is merged, set each post's `author` front matter
+# to the GitHub login of the person who merged the PR ("머지한 사람 = 작성자"),
+# then trigger a Pages rebuild so the change goes live.
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: write
+  pull-requests: read
+  actions: write          # needed to dispatch the Build and Deploy workflow
+
+jobs:
+  stamp:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Stamp author into changed posts
+        id: stamp
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          MERGER: ${{ github.event.pull_request.merged_by.login }}
+        run: |
+          set -e
+          # List markdown files under _posts changed by this PR.
+          FILES=$(gh pr view "$PR_NUMBER" --json files --jq '.files[].path' \
+                  | grep -E '^_posts/.*\.md$' || true)
+          if [ -z "$FILES" ]; then
+            echo "No _posts/*.md changed in this PR; nothing to stamp."
+            echo "changed=0" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "Merger: $MERGER"
+          echo "$FILES" | MERGER="$MERGER" python - <<'PY'
+          import os, sys, re
+          merger = os.environ["MERGER"]
+          files = [l.strip() for l in sys.stdin if l.strip()]
+          for path in files:
+              if not os.path.exists(path):
+                  print("skip (missing):", path); continue
+              text = open(path, encoding="utf-8").read()
+              if not text.startswith("---"):
+                  print("skip (no front matter):", path); continue
+              end = text.find("\n---", 3)
+              if end == -1:
+                  print("skip (unterminated front matter):", path); continue
+              fm = text[3:end]
+              body = text[end:]
+              lines = fm.splitlines()
+              author_line = f"author: {merger}"
+              replaced = False
+              out = []
+              for ln in lines:
+                  if re.match(r"\s*author\s*:", ln):
+                      out.append(author_line); replaced = True
+                  else:
+                      out.append(ln)
+              if not replaced:
+                  # insert right after the title line if present, else at top
+                  idx = next((i for i, l in enumerate(out) if re.match(r"\s*title\s*:", l)), -1)
+                  out.insert(idx + 1 if idx >= 0 else 0, author_line)
+              new = "---" + "\n".join(out) + body
+              open(path, "w", encoding="utf-8").write(new)
+              print("stamped", path, "->", merger)
+          PY
+          git config user.name  "ms-kr-security-bot"
+          git config user.email "actions@github.com"
+          git add _posts
+          if git diff --cached --quiet; then
+            echo "No author changes to commit."
+            echo "changed=0" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "chore: set author=${MERGER} on merged post(s) [skip pages]"
+            git push origin main
+            echo "changed=1" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Trigger Pages build
+        if: steps.stamp.outputs.changed == '1'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run "Build and Deploy" --ref main

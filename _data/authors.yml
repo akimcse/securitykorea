@@ -1,0 +1,20 @@
+# Chirpy author registry. Post front matter `author: <id>` (or set automatically
+# at PR-merge time by .github/workflows/stamp-author.yml, where <id> = the GitHub
+# login of the person who merged the PR).
+#
+# Add a new entry whenever a new contributor's GitHub login first merges a post.
+
+akimcse:
+  name: Hyuna Kim
+  url: https://github.com/akimcse
+
+# --- Placeholders for other solution owners (fill GitHub login + real name) ---
+# byungtae:
+#   name: Byungtae <Lastname>
+#   url: https://github.com/<login>
+# jonggi:
+#   name: Jonggi <Lastname>
+#   url: https://github.com/<login>
+# sanghyeok:
+#   name: Sanghyeok <Lastname>
+#   url: https://github.com/<login>
