@@ -1,3 +1,10 @@
 {
-  "processed": {}
+  "processed": {
+    "https://www.microsoft.com/en-us/security/blog/?p=147521": {
+      "title": "Microsoft Build 2026: Securing code, agents, and models across the development lifecycle",
+      "solution": "agent-365",
+      "processed_at": "2026-06-13T16:50:23.116725+00:00",
+      "post_path": "_posts/2026-06-02-microsoft-build-2026-securing-code-agents-and-models-across-.md"
+    }
+  }
 }
