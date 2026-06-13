@@ -30,6 +30,8 @@ solutions:
       - "ai agents"
       - "agentic"
       - "autonomous agent"
+      - "frontier ai models"
+      - "ci/cd"
 
   purview:
     label: "Purview"
