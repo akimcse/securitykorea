@@ -67,6 +67,10 @@ jobs:
           git commit -m "auto: ${COUNT} new translated post(s)"
           git push origin "$BRANCH"
 
+          # Ensure labels exist (idempotent) so PR creation never fails on missing labels.
+          gh label create "auto-post" --color "1f6feb" --description "Auto-generated translated post" 2>/dev/null || true
+          gh label create "pending-approval" --color "d4a72c" --description "Awaiting owner review/merge" 2>/dev/null || true
+
           # Build a Markdown PR body listing each post + owner.
           python - <<'PY' > pr_body.md
           import json, os
