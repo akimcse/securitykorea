@@ -5,6 +5,12 @@
       "solution": "agent-365",
       "processed_at": "2026-06-13T16:50:23.116725+00:00",
       "post_path": "_posts/2026-06-02-microsoft-build-2026-securing-code-agents-and-models-across-.md"
+    },
+    "https://www.microsoft.com/en-us/security/blog/?p=147931": {
+      "title": "Securing CI/CD in an agentic world: Claude Code Github action case",
+      "solution": "agent-365",
+      "processed_at": "2026-06-13T17:01:34.302710+00:00",
+      "post_path": "_posts/2026-06-05-securing-cicd-in-an-agentic-world-claude-code-github-action-.md"
     }
   }
 }
