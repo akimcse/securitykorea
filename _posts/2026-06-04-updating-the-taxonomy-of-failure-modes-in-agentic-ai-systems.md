@@ -1,5 +1,6 @@
 ---
 title: "[KO] Updating the taxonomy of failure modes in agentic AI systems: What a year of red teaming taught us"
+author: akimcse
 date: 2026-06-04 19:14:42 +0000
 categories: ["Agent 365"]
 tags: ["frontier ai models"]
