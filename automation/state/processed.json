@@ -17,6 +17,12 @@
       "solution": "agent-365",
       "processed_at": "2026-06-14T02:12:52.803906+00:00",
       "post_path": "_posts/2026-06-04-updating-the-taxonomy-of-failure-modes-in-agentic-ai-systems.md"
+    },
+    "https://www.microsoft.com/en-us/security/blog/?p=147277": {
+      "title": "New Forrester Total Economic Impact™ study projects a 124% ROI from unifying with Microsoft Security",
+      "solution": "agent-365",
+      "processed_at": "2026-06-24T01:56:31.779081+00:00",
+      "post_path": "_posts/2026-06-18-new-forrester-total-economic-impact-study-projects-a-124-roi.md"
     }
   }
 }
