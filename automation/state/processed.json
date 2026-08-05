@@ -17,6 +17,18 @@
       "solution": "agent-365",
       "processed_at": "2026-06-14T02:12:52.803906+00:00",
       "post_path": "_posts/2026-06-04-updating-the-taxonomy-of-failure-modes-in-agentic-ai-systems.md"
+    },
+    "https://www.microsoft.com/en-us/security/blog/?p=148838": {
+      "title": "​​​​What’s new in Microsoft Security: July 2026",
+      "solution": "agent-365",
+      "processed_at": "2026-08-05T01:18:03.263923+00:00",
+      "post_path": "_posts/2026-07-30-whats-new-in-microsoft-security-july-2026.md"
+    },
+    "https://www.microsoft.com/en-us/security/blog/?p=148771": {
+      "title": "Enhancing AI security through global AI red teaming",
+      "solution": "agent-365",
+      "processed_at": "2026-08-05T01:18:03.264744+00:00",
+      "post_path": "_posts/2026-07-27-enhancing-ai-security-through-global-ai-red-teaming.md"
     }
   }
 }
