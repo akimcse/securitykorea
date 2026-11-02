@@ -17,6 +17,12 @@
       "solution": "agent-365",
       "processed_at": "2026-06-14T02:12:52.803906+00:00",
       "post_path": "_posts/2026-06-04-updating-the-taxonomy-of-failure-modes-in-agentic-ai-systems.md"
+    },
+    "https://www.microsoft.com/en-us/security/blog/?p=150709": {
+      "title": "Inside a malicious Claude Code-branded extension and its persistent SSH backdoor",
+      "solution": "agent-365",
+      "processed_at": "2026-11-02T02:56:58.359377+00:00",
+      "post_path": "_posts/2026-10-31-inside-a-malicious-claude-code-branded-extension-and-its-per.md"
     }
   }
 }
