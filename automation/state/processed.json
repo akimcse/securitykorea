@@ -17,6 +17,24 @@
       "solution": "agent-365",
       "processed_at": "2026-06-14T02:12:52.803906+00:00",
       "post_path": "_posts/2026-06-04-updating-the-taxonomy-of-failure-modes-in-agentic-ai-systems.md"
+    },
+    "https://www.microsoft.com/en-us/security/blog/?p=150871": {
+      "title": "FORGE Lab uses agentic tools to identify memory safety issues in Rust",
+      "solution": "agent-365",
+      "processed_at": "2026-11-11T03:23:57.363134+00:00",
+      "post_path": "_posts/2026-11-09-forge-lab-uses-agentic-tools-to-identify-memory-safety-issue.md"
+    },
+    "https://www.microsoft.com/en-us/security/blog/?p=150684": {
+      "title": "​​​​What’s new in Microsoft Security: November 2026",
+      "solution": "agent-365",
+      "processed_at": "2026-11-11T03:23:57.363865+00:00",
+      "post_path": "_posts/2026-11-05-whats-new-in-microsoft-security-november-2026.md"
+    },
+    "https://www.microsoft.com/en-us/security/blog/?p=150631": {
+      "title": "Microsoft named a Leader in the 2026 Gartner® Magic Quadrant™ for AI Agent Management Platforms",
+      "solution": "agent-365",
+      "processed_at": "2026-11-11T03:23:57.364395+00:00",
+      "post_path": "_posts/2026-11-03-microsoft-named-a-leader-in-the-2026-gartner-magic-quadrant-.md"
     }
   }
 }
